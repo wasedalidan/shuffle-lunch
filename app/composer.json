@@ -9,8 +9,18 @@
     "config": {
     	"vendor-dir": "Vendor"
     },
+	"repositors":[
+		{
+		"type":"vcs",
+		"url": "git://github.com/sizuhiko/Bdd.git"
+		}
+	],
     "require": {
         "cakephp/cakephp": "2.5.*"
-		"slywalker/boost_cake": "*"
-    }
+    },
+	"require-dev":{
+		"pear/console_commandline":"@dev",
+		"pear/pear_exception":"@dev",
+        "behat/mink-goutte-driver": "*"
+	}	
 }

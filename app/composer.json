@@ -1,0 +1,16 @@
+{
+    "name": "phpcibook/blogapp",
+    "authors": [
+        {
+            "name": "Li Dan",
+            "email": "dlutlidan@gmail.com"
+        }
+    ],
+    "config": {
+    	"vendor-dir": "Vendor"
+    },
+    "require": {
+        "cakephp/cakephp": "2.5.*"
+		"slywalker/boost_cake": "*"
+    }
+}

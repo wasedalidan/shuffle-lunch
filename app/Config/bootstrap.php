@@ -12,14 +12,10 @@
  * @package       app.Config
  * @since         CakePHP(tm) v 0.10.8.2117
  */
-
-//CakePlugin::load('Bdd');
 require_once dirname(dirname(__FILE__)) . DS . 'Vendor' . DS . 'autoload.php';
-
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => 'File'));
 include dirname(__FILE__) . DS . 'bootstrap' . DS . 'environments.php';
-
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
  *
@@ -64,16 +60,12 @@ include dirname(__FILE__) . DS . 'bootstrap' . DS . 'environments.php';
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
-//CakePlugin::loadAll();
-
 CakePlugin::load('Migrations');
-CakePlugin::load('BoostCake');
-CakePlugin::load('Users', array('routes' => null));
-CakePlugin::load('Utils');
-CakePlugin::load('Search');
-CakePlugin::load('Fabricate');
+//CakePlugin::load('BoostCake');
+//CakePlugin::load('Users', array('routes' => null));
+//CakePlugin::load('Utils');
+//CakePlugin::load('Search');
 CakePlugin::load('DebugKit');
-
 /**
  * You can attach event listeners to the request lifecycle as Dispatcher Filter . By default CakePHP bundles two filters:
  *

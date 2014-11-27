@@ -1,4 +1,8 @@
 app/tmp
+app/Plugin
 app/Vendor
 app/reports
 app/Config/bootstrap/environments/production.php
+deploy/config/deploy/production.php
+app/tmp/cache/persistent
+

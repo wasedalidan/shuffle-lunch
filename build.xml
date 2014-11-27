@@ -11,10 +11,9 @@
     <property name="vendorbindir" value="${appdir}/Vendor/bin" />
 
     <!-- Build(1) -->
-    <target name="build" depends="caketest,phpcs,phpmd,phpcpd,phpdoc"/>
+    <target name="build" depends="prepare,caketest,phpcs,phpmd,phpcpd,phpdoc"/>
 
     <!-- Prepare(2) -->
-	<!--
     <target name="prepare" description="Prepare for build">
         <exec dir="${appdir}" executable="${appdir}/Console/cake" output="${logdir}/migration.log" checkreturn="true">
             <arg line="migrations.migration" />
@@ -22,7 +21,6 @@
             <arg line="all" />
         </exec>
     </target>
-	-->
 
     <!-- CakePHP unit test with PHPUnit(3) -->
     <target name="caketest" description="Run CakePHP unit tests with PHPUnit">

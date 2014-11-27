@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Phing build config file.
+    @link http://www.phing.info/
+-->
+<project name="blogapp" default="build">
+    <!-- Properties -->
+    <property name="basedir" value="${phing.dir}" />
+    <property name="appdir" value="${basedir}/app" />
+    <property name="logdir" value="${appdir}/tmp/logs" />
+    <property name="vendorbindir" value="${appdir}/Vendor/bin" />
+
+    <!-- Build(1) -->
+    <target name="build" depends="prepare,caketest,behat,phpcs,phpmd,phpcpd,phpdoc"/>
+
+    <!-- Prepare(2) -->
+    <target name="prepare" description="Prepare for build">
+        <exec dir="${appdir}" executable="${appdir}/Console/cake" output="${logdir}/migration.log" checkreturn="true">
+            <arg line="migrations.migration" />
+            <arg line="run" />
+            <arg line="all" />
+        </exec>
+    </target>
+
+    <!-- CakePHP unit test with PHPUnit(3) -->
+    <target name="caketest" description="Run CakePHP unit tests with PHPUnit">
+        <exec dir="${appdir}" executable="${appdir}/Console/cake" output="${logdir}/caketest.log" checkreturn="true">
+            <arg line="test" />
+            <arg line="--log-junit=${appdir}/reports/unittest.xml" />
+            <arg line="--coverage-html=${appdir}/reports" />
+            <arg line="--coverage-clover=${appdir}/reports/coverage.xml" />
+            <arg line="app" />
+            <arg line="AllTests" />
+        </exec>
+    </target>
+    <!-- CakePHP acceptance test with Behat -->
+    <target name="behat" description="Run CakePHP acceptance test with Behat">
+           <exec command="find ${appdir}/tmp -type d -print | xargs chmod 777" escape="false" />
+           <exec dir="${appdir}" executable="${appdir}/Console/cake" output="${logdir}/behat.log" checkreturn="true">
+               <arg line="Bdd.story" />
+               <arg line="--format=junit" />
+               <arg line="--out=${appdir}/reports" />
+           </exec>
+    </target>
+
+    <!-- PHPCodeSniffer -->
+    <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer.">
+        <exec dir="${basedir}" executable="${vendorbindir}/phpcs" output="${logdir}/phpcs.log">
+            <arg line="--config-set" />
+            <arg line="installed_paths" />
+            <arg line="${appdir}/Vendor/cakephp/cakephp-codesniffer" />
+        </exec>
+        <exec dir="${basedir}" executable="${vendorbindir}/phpcs" output="${logdir}/phpcs.log">
+            <arg line="--ignore=Test,Vendor,Plugin" />
+            <arg line="--report=checkstyle" />
+            <arg line="--report-checkstyle=${appdir}/reports/checkstyle.xml" />
+            <arg line="--standard=CakePHP" />
+            <arg line="--extensions=php" />
+            <arg line="${appdir}" />
+        </exec>
+    </target>
+
+    <!-- PHPMD -->
+    <target name="phpmd" description="Perform project mess detection using PHPMD">
+        <exec dir="${basedir}" executable="${vendorbindir}/phpmd" output="${logdir}/phpmd.log">
+            <arg line="${appdir}" />
+            <arg line="xml" />
+            <arg line="codesize,unusedcode,design,naming" />
+            <arg line="--exclude ${appdir}/Test,${appdir}/Vendor,${appdir}/Plugin,${appdir}/Config/Migration,${appdir}/Config/Schema" />
+            <arg line="--reportfile ${appdir}/reports/phpmd.xml" />
+        </exec>
+    </target>
+
+    <!-- PHPCPD -->
+    <target name="phpcpd" description="Perform project mess detection using PHPMD">
+        <exec dir="${basedir}" executable="${vendorbindir}/phpcpd" output="${logdir}/phpcpd.log">
+            <arg line="--exclude Vendor" />
+            <arg line="--exclude Plugin" />
+            <arg line="--exclude webroot" />
+            <arg line="--log-pmd ${appdir}/reports/phpcpd.xml" />
+            <arg line="--names *.php,*.cpt" />
+            <arg line="${appdir}" />
+        </exec>
+    </target>
+
+   <!-- phpdoc -->
+   <target name="phpdoc" description="Generate Application Documentation using phpDocumentor">
+       <exec dir="${basedir}" executable="phpdoc" output="${logdir}/phpdoc.log" checkreturn="true">
+           <arg line="run" />
+           <arg line="-t ${appdir}/reports/doc" />
+           <arg line="-d ${appdir}/" />
+           <arg line="-e php" />
+           <arg line="-i ${appdir}/Vendor/,${appdir}/Plugin/,${appdir}/Test/,${appdir}/Config/" />
+           <arg line="-p" />
+       </exec>
+   </target>
+</project>

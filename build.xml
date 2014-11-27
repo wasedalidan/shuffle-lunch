@@ -30,6 +30,7 @@
             <arg line="--coverage-html=${appdir}/reports" />
             <arg line="--coverage-clover=${appdir}/reports/coverage.xml" />
             <arg line="app" />
+            <arg line="AllTests" />
         </exec>
     </target>
     

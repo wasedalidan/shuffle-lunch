@@ -1,26 +1,28 @@
 {
-    "name": "phpcibook/blogapp",
+    "name": "lidan/blogapp",
     "authors": [
         {
             "name": "Li Dan",
             "email": "dlutlidan@gmail.com"
         }
     ],
-    "config": {
+	"config": {
     	"vendor-dir": "Vendor"
     },
-	"repositors":[
-		{
-		"type":"vcs",
-		"url": "git://github.com/sizuhiko/Bdd.git"
-		}
-	],
+	"repositories": [
+        {
+           "type": "vcs",
+           "url": "git://github.com/sizuhiko/Bdd.git"
+        }
+    ],
     "require": {
-        "cakephp/cakephp": "2.5.*"
+        "cakephp/cakephp": "2.5.*",
+        "josegonzalez/cakephp-environments": "1.0.0"
     },
-	"require-dev":{
-		"pear/console_commandline":"@dev",
-		"pear/pear_exception":"@dev",
+	"require-dev": {
+       "pear/console_commandline": "@dev",
+       "pear/pear_exception": "@dev",
+        "sizuhiko/Bdd": "dev-master",
         "behat/mink-goutte-driver": "*"
-	}	
+	}
 }

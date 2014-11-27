@@ -45,7 +45,7 @@ class UserTest extends CakeTestCase {
         public function testgetActiveで取得したレコードは全てactiveカラムが1なこと(){
                 $actives = $this->User->getActive();
                 foreach($actives as $row) {
-                    $this->assertEquals(1, $row['User']['active']);
+                    $this->assertEquals(0, $row['User']['active']);
                 }
         }
 }

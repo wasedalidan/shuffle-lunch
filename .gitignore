@@ -1,5 +1,4 @@
 app/tmp
-app/Plugin
 app/Vendor
 app/reports
 app/Config/bootstrap/environments/production.php

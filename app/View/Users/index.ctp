@@ -1,5 +1,6 @@
+
 <div class="users index">
-first application!	
+my first application!
 	<h2><?php echo __('Users'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
